@@ -1,0 +1,8 @@
+{
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "Fira Mono",
+    "terminal.integrated.fontFamily": "monospace",
+    "notebook.output.fontFamily": "Fira Mono",
+    "editor.inlayHints.fontFamily": "Fira Mono",
+    "editor.codeLensFontFamily": "Fira Mono"
+}

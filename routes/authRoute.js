@@ -8,20 +8,22 @@ const {
     getUserById,
     blockUser,
     unblockUser,
-    updateUser
+    updateUser,
+    handleRefreshToken
 
 } = require('../controllers/userCtrl');
 const { notFound, errorHandler } = require('../middlewares/errorHandler');
 
 
+// GET REQUEST
+router.get('/all-users', getAllUsers);
+router.get('/:id', getUserById);
+router.get('/refresh', handleRefreshToken);
+
 // POST REQUESTS
 router.post('/register', createUser);
 router.post('/login', loginUserCtrl);
 router.post('/login-admin', loginAdmin);
-
-// GET REQUEST
-router.get('/all-users', getAllUsers);
-router.get('/:id', getUserById);
 
 // PUT REQUESTS
 router.put('/edit-user', updateUser);   

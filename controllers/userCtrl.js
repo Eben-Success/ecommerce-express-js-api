@@ -274,6 +274,10 @@ const unblockUser = asyncHandler(async (req, res) => {
   }
 })
 
+const handleRefreshToken = asyncHandler(async (req, res) => {
+    console.log(req.cookies);
+})
+
 
 module.exports = {
     createUser,
@@ -287,5 +291,6 @@ module.exports = {
     deleteUser,
     blockUser,
     unblockUser,
-    updatePassword
+    updatePassword,
+    handleRefreshToken,
 }

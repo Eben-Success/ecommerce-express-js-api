@@ -9,25 +9,29 @@ const {
     blockUser,
     unblockUser,
     updateUser,
+    logout,
     handleRefreshToken
 
 } = require('../controllers/userCtrl');
 const { notFound, errorHandler } = require('../middlewares/errorHandler');
 
 
-// GET REQUEST
-router.get('/all-users', getAllUsers);
-router.get('/:id', getUserById);
-router.get('/refresh', handleRefreshToken);
-
 // POST REQUESTS
 router.post('/register', createUser);
 router.post('/login', loginUserCtrl);
+
 router.post('/login-admin', loginAdmin);
+
+// GET REQUEST
+router.get('/refresh', handleRefreshToken);
+router.get('/logout', logout)
+router.get('/all-users', getAllUsers);
+router.get('/:id', getUserById);
 
 // PUT REQUESTS
 router.put('/edit-user', updateUser);   
 router.put('/block-user/:id', blockUser);
 router.put('/unblock-user/:id', unblockUser)
 router.put('/edit-address/:id', updateUser)
+
 module.exports = router;

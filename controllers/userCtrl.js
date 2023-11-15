@@ -4,7 +4,8 @@ const cookie = require('cookie');
 const validateMongooseId = require('../utils/validateMongooseId');
 const {generateRefreshToken} = require('../config/refreshtoken');
 const {generateToken} = require('../config/jwtToken');
-const httpStatus = require('http-status-codes');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv').config();
 
 // Create a User
 const createUser = asyncHandler(async (req, res) => {
@@ -101,33 +102,27 @@ const loginAdmin = asyncHandler(async (req, res) => {
 })
 
 // logout user
-const logoutUser = asyncHandler(async (req, res) => {
-  const cookie = req.cookie;
-  // check if refreshToken exists
-  if (!cookie?.refreshToken){
-    throw new Error("No refresh token found for the cookie");
-  }
-
+const logout = asyncHandler(async (req, res) => {
+  const cookie = req.cookies;
+  if (!cookie?.refreshToken) throw new Error("No Refresh Token in Cookies");
   const refreshToken = cookie.refreshToken;
-  const user = await User.findOne({refreshToken});
-  if (!user){
+  const user = await User.findOne({ refreshToken });
+  if (!user) {
     res.clearCookie("refreshToken", {
       httpOnly: true,
-      secure: true
+      secure: true,
     });
-    return res.sendStatus(204); // successfully fulfiled a request;
+    return res.sendStatus(204); // forbidden
   }
-
-  await User.findOneAndUpdate(refreshToken, {
+  await User.findOneAndUpdate({
     refreshToken: "",
   });
   res.clearCookie("refreshToken", {
     httpOnly: true,
-    secure: true
+    secure: true,
   });
-  res.sendStatus(204);
-
-})
+  res.sendStatus(204); // forbidden
+});
 
 
 // Get all users
@@ -275,7 +270,31 @@ const unblockUser = asyncHandler(async (req, res) => {
 })
 
 const handleRefreshToken = asyncHandler(async (req, res) => {
-    console.log(req.cookies);
+    const cookie = req.cookies;
+
+    if (!cookie?.refreshToken){
+      throw new Error("No refresh token found for the cookie");
+    }
+
+    const refreshToken = cookie.refreshToken;
+    
+    const findUser = await User.findOne({refreshToken});
+
+    if (!findUser){
+      throw new Error("New refresh token present in DB or not matched")
+    }
+
+    // verify refreshToken
+    jwt.verify(refreshToken, process.env.JWT_SECRET, (err, decoded) => {
+      
+      if (err || findUser.id !== decoded.id){
+        throw new Error("Invalid refresh token");
+      }
+
+      // generate new refresh token
+      const accessToken = generateToken(findUser?._id);
+      res.json({ accessToken });
+    })
 })
 
 
@@ -285,7 +304,7 @@ module.exports = {
     loginAdmin,
     getAllUsers,
     getUserById,
-    logoutUser,
+    logout,
     updateUser,
     updateUser,
     deleteUser,

@@ -4,10 +4,15 @@ const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema(
   {
+    ProfilePic: {
+      type: String
+    },
+
     firstname: {
       type: String,
       required: [true, "Please enter your first name"],
     },
+
     lastname: {
       type: String,
       required: [true, "Please enter your last name"],

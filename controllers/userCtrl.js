@@ -6,6 +6,8 @@ const {generateRefreshToken} = require('../config/refreshtoken');
 const {generateToken} = require('../config/jwtToken');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config();
+const multer = require('multer');
+const path = require('path');
 
 // Create a User
 const createUser = asyncHandler(async (req, res) => {
@@ -101,6 +103,13 @@ const loginAdmin = asyncHandler(async (req, res) => {
 
 })
 
+// upload profile picture
+const storage = multer.diskStorage({
+  destination: "../upload/profile_pics"
+
+  })
+
+
 // logout user
 const logout = asyncHandler(async (req, res) => {
   const cookie = req.cookies;
@@ -149,9 +158,7 @@ const getUserById = asyncHandler(async (req, res) => {
         catch (error) {
             res.status(400);
             throw new Error(error);
-        }
-;
-
+        };
 })
 
 // Update a user

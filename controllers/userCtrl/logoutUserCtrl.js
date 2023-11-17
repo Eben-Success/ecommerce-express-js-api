@@ -1,7 +1,4 @@
-import {
-  User,
-  asyncHandler
- } from "./module.js";
+const { asyncHandler, User, generateToken, generateRefreshToken, jwt } = require("./modules");
 
 // logout user
 const logout = asyncHandler(async (req, res) => {

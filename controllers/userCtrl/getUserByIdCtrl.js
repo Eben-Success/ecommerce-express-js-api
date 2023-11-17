@@ -1,8 +1,4 @@
-import {
-    validateMongooseId,
-     User,
-     asyncHandler
-     } from "./modules";
+const { asyncHandler, User, validateMongooseId } = require("./modules");
 
 // Get a User by ID
 const getUserById = asyncHandler(async (req, res) => {
@@ -20,4 +16,4 @@ const getUserById = asyncHandler(async (req, res) => {
 })
 
 
-module.exports = { getUserById }
+module.exports =  getUserById 

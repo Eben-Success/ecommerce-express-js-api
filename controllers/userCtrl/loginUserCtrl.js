@@ -1,16 +1,12 @@
-import {
-  User,
-  generateToken,
-  asyncHandler
-} from "./modules.js";
+const { asyncHandler, User, generateToken, generateRefreshToken } = require("./modules");
 
 // Login a user
-export const loginUserCtrl = asyncHandler(async (req, res) => {
+const loginUserCtrl = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     // check if user exists or not
     const findUser = await User.findOne({ email });
     if (findUser && (await findUser.isPasswordMatched(password))) {
-      const refreshToken = await generateRefreshToken(findUser?._id);
+      const refreshToken = generateRefreshToken(findUser?._id);
       const updateuser = await User.findByIdAndUpdate(
         findUser.id,
         {

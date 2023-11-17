@@ -1,7 +1,4 @@
-import { 
-    User, 
-    asyncHandler
- } from "./modules.js";
+const { asyncHandler, User } = require("./modules");
 
 
 // Get all users
@@ -17,4 +14,4 @@ const getAllUsers = asyncHandler(async (req, res) => {
 })
 
 
-module.exports = {getAllUsers}
+module.exports =  getAllUsers 

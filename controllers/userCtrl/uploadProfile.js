@@ -1,4 +1,4 @@
-import { asyncHandler, app } from "./module.js";
+const { asyncHandler, User, generateRefreshToken, generateToken } = require("./modules");
 
 // upload profile picture
 const storage = multer.diskStorage({

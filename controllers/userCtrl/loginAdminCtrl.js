@@ -1,11 +1,5 @@
-import {
-  User,
-  generateRefreshToken,
-  generateToken,
-  asyncHandler,
-  
-  
-} from './modules.js';
+const { asyncHandler, User, generateToken, generateRefreshToken, jwt } = require("./modules");
+
 
 // Login Admin
 const loginAdmin = asyncHandler(async (req, res) => {
@@ -20,7 +14,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
   
     // if admin check password
     if (findAdmin && (await findAdmin.isPasswordMatched(password))){
-      const refreshToken = await generateRefreshToken(findAdmin?._id);
+      const refreshToken = generateRefreshToken(findAdmin?._id);
       const updateAdmin = await User.findByIdAndUpdate(
         findAdmin.id,
         {

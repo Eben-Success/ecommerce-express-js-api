@@ -1,8 +1,4 @@
-import {
-  User,
-  validateMongooseId,
-  asyncHandler
-} from "./modules.js";
+const { asyncHandler, User, generateToken, generateRefreshToken, jwt } = require("./modules");
 
 // Update a user
 const updateUser = asyncHandler(async (req, res) => {
@@ -27,4 +23,4 @@ const updateUser = asyncHandler(async (req, res) => {
     }
   })
 
-  module.exports = { updateUser }
+  module.exports = updateUser 

@@ -1,10 +1,4 @@
-import { 
-    User,
-     asyncHandler,
-     } from "./modules.js";
-
-const multer = require('multer');
-const path = require('path');
+const { asyncHandler, User, multer, path } = require("./modules");
 
 // upload profile picture
 const storage = multer.diskStorage({
@@ -26,7 +20,7 @@ const upload = multer({
 const createUser = asyncHandler(async (req, res) => {
 
     // Get email from req.body
-    console.log(req.body)
+   
     const email = req.body.email;
 
     //check if user exists
@@ -36,7 +30,7 @@ const createUser = asyncHandler(async (req, res) => {
         // create user
         if (req.file){
             // Save file path or URL to the user's profilePicture field
-            console.log(req.file.path)
+            
             req.body.profile = req.file.path;
             
         }

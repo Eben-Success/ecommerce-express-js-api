@@ -7,6 +7,7 @@ const getAllUsers = require('../controllers/userCtrl/getAllUsersCtrl');
 const getUserById = require('../controllers/userCtrl/getUserByIdCtrl');
 const updateUser = require('../controllers/userCtrl/updateUserCtrl');
 const blockUser = require('../controllers/userCtrl/blockUserCtrl');
+const updateProfile = require('../controllers/userCtrl/updateProfileCtrl');
 // const unblockUser = require('../controllers/userCtrl/unblockUserCtrl');
 
 const express = require('express');
@@ -26,6 +27,7 @@ router.get('/all-users', getAllUsers);
 router.get('/:id', getUserById);
 
 // PUT REQUESTS
+router.put('/update-profile/:id', updateProfile);
 router.put('/edit-user', updateUser);   
 router.put('/block-user/:id', blockUser);
 // router.put('/unblock-user/:id', unblockUser)

@@ -21,6 +21,8 @@ app.use('/api/v1/user', authRoute);
 app.use(notFound);
 app.use(errorHandler);
 
+app.use('/profile', express.static('upload/profile_pics'));
+
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 })

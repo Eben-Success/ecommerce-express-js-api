@@ -8,11 +8,14 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config();
 const multer = require('multer');
 const path = require('path');
+const express = require('express');
+const app = express();
 
 
 
 
 module.exports = {
+    app,
     asyncHandler,
     User,
     cookie,

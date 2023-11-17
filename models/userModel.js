@@ -4,7 +4,7 @@ const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema(
   {
-    ProfilePic: {
+    profile: {
       type: String
     },
 

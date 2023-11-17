@@ -10,14 +10,27 @@ const {
     unblockUser,
     updateUser,
     logout,
-    handleRefreshToken
+    handleRefreshToken,
+    // upload,
+    storage
 
-} = require('../controllers/userCtrl');
+
+} = require('../controllers/userCtrl');``
+const multer = require('multer');
 const { notFound, errorHandler } = require('../middlewares/errorHandler');
 
+const upload = multer({
+    storage: storage,
+    limits: {
+        filesize: 10000000 // 10000000 Bytes = 10 MB
+    }
+})
+
+
+router.post("/register", upload.single("profile"), createUser);
 
 // POST REQUESTS
-router.post('/register', createUser);
+
 router.post('/login', loginUserCtrl);
 
 router.post('/login-admin', loginAdmin);
